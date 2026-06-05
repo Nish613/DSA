@@ -1,24 +1,19 @@
 class Solution {
 public:
-
-    void rec(vector<int>& nums, int l,int h,int k)
+    void rev(vector<int>& nums,int start,int end)
     {
-        while(l<h)
+        
+        while(start<end)
         {
-            int temp=nums[l];
-            nums[l]=nums[h-1];
-            nums[h-1]=temp;
-            l++;
-            h--;
+            swap(nums[start],nums[end-1]);
+            start++;
+            end--;
         }
     }
-    
     void rotate(vector<int>& nums, int k) {
-        int n = nums.size();
-        k=k%n;
-        rec(nums,0,n,k);
-        rec(nums,0,k,k);
-        rec(nums,k,n,k);
-        
+        k=k%nums.size();
+        rev(nums,0,nums.size());
+        rev(nums,0,k);
+        rev(nums,k,nums.size());
     }
 };
