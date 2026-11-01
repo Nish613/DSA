@@ -1,36 +1,37 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        int n = nums.size();
-        vector<vector<int>> ans;
         sort(nums.begin(),nums.end());
-        for(int i=0;i<n;i++)
+        vector<vector<int>> ans;
+        int n=nums.size();
+        
+        for(int i=0;i<n-3;i++)
         {
-            if(i>0&&nums[i]==nums[i-1])continue;
-            for(int j=i+1;j<n;j++)
+            for(int j=i+1;j<n-2;j++)
             {
-                if(j>i+1&&nums[j]==nums[j-1])continue;
-                int left=j+1;
-                int right=n-1;
-
-                while(left<right)
+                int k=j+1,l=n-1;
+                while(k<l)
                 {
-                    long long sum = 1LL* nums[i]+nums[j]+nums[left]+nums[right];
-                    if(sum==target)
-                    {
-                        ans.push_back({nums[i],nums[j],nums[left],nums[right]});
-                        while(left<right&&nums[left]==nums[left+1])left++;
-                        while(left<right&&nums[right]==nums[right-1])right--;
-                        left++;
-                        right--;
+                    long long sum=(long long)nums[i]+nums[j]+nums[k]+nums[l];
+                    if(sum==target){
+                    ans.push_back({nums[i],nums[j],nums[k],nums[l]});
+                    k++;
+                    l--;
                     }
                     else if(sum<target)
-                    left++;
-                    else if(sum>target)
-                    right--;
+                    {
+                        k++;
+
+                    }
+                    else
+                    l--;
                 }
+
             }
+           
         }
+        sort(ans.begin(),ans.end());
+        ans.erase(unique(ans.begin(),ans.end()),ans.end());
         return ans;
     }
 };
